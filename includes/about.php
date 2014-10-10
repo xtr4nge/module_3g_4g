@@ -1,0 +1,1 @@
+<b>nmcli</b> is a command‐line tool for controlling NetworkManager and reporting on its status.  It is not meant as a full replacement for nm‐applet or other similar clients but as a complementary utility to those programs.  The main usage for nmcli is on servers, headless machines or for power users who prefer the command line.
