@@ -1,6 +1,6 @@
 <? 
 /*
-    Copyright (C) 2013-2014  xtr4nge [_AT_] gmail.com
+    Copyright (C) 2013-2014 xtr4nge [_AT_] gmail.com
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -18,9 +18,9 @@
 ?>
 <?
 //include "../login_check.php";
+include "../../../config/config.php";
 include "../_info_.php";
-include "/usr/share/FruityWifi/www/config/config.php";
-include "/usr/share/FruityWifi/www/functions.php";
+include "../../../functions.php";
 
 // Checking POST & GET variables...
 if ($regex == 1) {
@@ -43,38 +43,38 @@ $install = $_GET['install'];
 if ($service == "3g_4g") {
 	
     if ($action == "start") {
-	    
-	$exec = "$bin_cp FruityWifi_Mobile /etc/NetworkManager/system-connections/";
-	exec("$bin_danger \"$exec\"" );
-	echo $exec . "<br>";
-	//exit;
 	
-	$exec = "$bin_sleep 2";
-	exec("$bin_danger \"$exec\"" );
-	
-	$exec = "$bin_nmcli -t nm wwan on";
-	exec("$bin_danger \"$exec\"" );
-	echo $exec . "<br>";
-	
-	$exec = "$bin_nmcli -t con up id FruityWifi_Mobile >/dev/null &";
-	exec("$bin_danger \"$exec\"" );
-	echo $exec . "<br>";
-	
-	//header('Location: ../../action.php?page='.$mod_name.'&wait=4');
-	//exit;
-	$wait = 4;
+        $exec = "$bin_cp FruityWifi_Mobile /etc/NetworkManager/system-connections/";
+        //exec("$bin_danger \"$exec\"" ); //DEPRECATED
+        exec_fruitywifi($exec);
+        
+        $exec = "$bin_sleep 2";
+        //exec("$bin_danger \"$exec\"" ); //DEPRECATED
+        exec_fruitywifi($exec);
+        
+        $exec = "$bin_nmcli -t nm wwan on";
+        //exec("$bin_danger \"$exec\"" ); //DEPRECATED
+        exec_fruitywifi($exec);
+        
+        $exec = "$bin_nmcli -t con up id FruityWifi_Mobile >/dev/null &";
+        //exec("$bin_danger \"$exec\"" ); //DEPRECATED
+        exec_fruitywifi($exec);
+        
+        //header('Location: ../../action.php?page='.$mod_name.'&wait=4');
+        //exit;
+        $wait = 4;
 	    
     } else if ($action == "stop") {
-	    
-	$exec = "$bin_nmcli -t con down id FruityWifi_Mobile >/dev/null &";
-	//echo $exec . "<br>";
-	exec("$bin_danger \"$exec\"" );
-	$exec = "$mod_path -t nm wwan off";
-	//echo $exec . "<br>";
-	exec("$bin_danger \"$exec\"" );
-	$exec = "$bin_nmcli -n c delete id FruityWifi_Mobile";
-	//echo $exec . "<br>";
-	exec("$bin_danger \"" . $exec . "\"" );
+    
+        $exec = "$bin_nmcli -t con down id FruityWifi_Mobile >/dev/null &";
+        //exec("$bin_danger \"$exec\"" ); //DEPRECATED
+        exec_fruitywifi($exec);
+        $exec = "$mod_path -t nm wwan off";
+        //exec("$bin_danger \"$exec\"" ); //DEPRECATED
+        exec_fruitywifi($exec);
+        $exec = "$bin_nmcli -n c delete id FruityWifi_Mobile";
+        //exec("$bin_danger \"" . $exec . "\"" ); //DEPRECATED
+        exec_fruitywifi($exec);
     
     }
 }
@@ -82,10 +82,12 @@ if ($service == "3g_4g") {
 if ($install == "install_$mod_name") {
 
     $exec = "$bin_chmod 755 install.sh";
-    exec("$bin_danger \"$exec\"" );
+    //exec("$bin_danger \"$exec\"" ); //DEPRECATED
+    exec_fruitywifi($exec);
 
-    $exec = "$bin_sudo ./install.sh > /usr/share/FruityWifi/logs/install.txt &";
-    exec("$bin_danger \"$exec\"" );
+    $exec = "$bin_sudo ./install.sh > $log_path/install.txt &";
+    //exec("$bin_danger \"$exec\"" ); //DEPRECATED
+    exec_fruitywifi($exec);
 
     header('Location: ../../install.php?module='.$mod_name);
     exit;

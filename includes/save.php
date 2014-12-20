@@ -18,8 +18,9 @@
 ?>
 <?
 
-include "../_info_.php";
+//include "../login_check.php";
 include "../../../config/config.php";
+include "../_info_.php";
 include "../../../functions.php";
 
 include "options_config.php";
@@ -47,13 +48,16 @@ $mb_password = $_POST['mb_password'];
 if ($type == "save_mobile_broadband") {
 
     $exec = "/bin/sed -i 's/^apn=.*/apn=$mb_apn/g' FruityWifi_Mobile";
-    exec("$bin_danger \"" . $exec . "\"", $output);
+    //exec("$bin_danger \"" . $exec . "\"", $output); //DEPRECATED
+    $output = exec_fruitywifi($exec);
 
     $exec = "/bin/sed -i 's/^username=.*/username=$mb_username/g' FruityWifi_Mobile";
-    exec("$bin_danger \"" . $exec . "\"", $output);
+    //exec("$bin_danger \"" . $exec . "\"", $output); //DEPRECATED
+    $output = exec_fruitywifi($exec);
 
     $exec = "/bin/sed -i 's/^password=.*/password=$mb_password/g' FruityWifi_Mobile";
-    exec("$bin_danger \"" . $exec . "\"", $output);
+    //exec("$bin_danger \"" . $exec . "\"", $output); //DEPRECATED
+    $output = exec_fruitywifi($exec);
 }
 
 header('Location: ../index.php');
